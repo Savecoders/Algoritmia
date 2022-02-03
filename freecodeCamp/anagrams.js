@@ -5,8 +5,12 @@
 //* My solve
 const isAnagrams = (s1, s2) => {
 	if (s1.length !== s2.length) return false;
-	for (const character of s1) {
-		if (!s2.includes(character)) {
+	let obj = {};
+	for (const iterator of s1) {
+		obj[iterator] ??= 1;
+	}
+	for (const character of s2) {
+		if (!obj[character]) {
 			return false;
 		}
 	}
