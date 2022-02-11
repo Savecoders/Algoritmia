@@ -4,47 +4,51 @@ given a binary tree, root check if its symmetric around its center
 
 */
 class TreeNode {
-	constructor(val, left, right) {
+	constructor(val) {
 		this.val = val;
-		this.left = left;
-		this.right = right;
+		this.left = null;
+		this.right = null;
 	}
 }
+const depthFirstValues = (root) => {
+	if (root === null) return [];
 
-const inorder = (root) => {
-	const nodes = [];
-	if (root) {
-		inorder(root.left);
-		nodes.push(root.val);
-		inorder(root.right);
-	}
-	return nodes;
-};
-// for our example tree, this returns [1,2,3,4,5,6]
+	const result = [];
+	const stack = [root];
 
-const postorder = (root) => {
-	const nodes = [];
-	if (root) {
-		postorder(root.left);
-		postorder(root.right);
-		nodes.push(root.val);
-	}
-	return nodes;
-};
-// for our example tree, this returns [1,3,2,6,5,4]
+	while (stack.length > 0) {
+		const current = stack.pop();
+		result.push(current.val);
 
-const preorder = (root) => {
-	const nodes = [];
-	if (root) {
-		nodes.push(root.val);
-		preorder(root.left);
-		preorder(root.right);
+		if (current.right) {
+			stack.push(current.right);
+		}
+
+		if (current.left) {
+			stack.push(current.left);
+		}
 	}
-	return nodes;
+	return result.join('');
 };
+
+const symmetricTree = (root) =>
+	depthFirstValues(root.left) === depthFirstValues(root.right);
 
 // for our example tree, this returns [1,3,2,6,5,4]
 
-const bst = new TreeNode(4, 2, 5);
+const head = new TreeNode(4);
+const two = new TreeNode(5);
+const three = new TreeNode(5);
+const four = new TreeNode(4);
+const five = new TreeNode(3);
+const six = new TreeNode(4);
+const seven = new TreeNode(3);
 
-console.log(inorder(bst));
+head.left = two;
+head.right = three;
+two.left = four;
+two.right = five;
+three.left = six;
+three.right = seven;
+
+console.log(symmetricTree(head));
