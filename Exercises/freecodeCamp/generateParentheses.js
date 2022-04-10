@@ -4,6 +4,7 @@
 const generateCombinationP = (num) => {
 	//tree of solve
 	let combinations = [];
+
 	const solveCombinations = (num, difference, comb, combinations) => {
 		console.log(num);
 		if (difference < 0 || difference > num) {
